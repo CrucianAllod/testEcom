@@ -25,8 +25,8 @@
 1. Клонируйте репозиторий:
 
    ```bash
-   git clone <URL_репозитория>
-   cd <имя_папки_репозитория>
+   git clone https://github.com/CrucianAllod/testEcom.git
+   cd testEcom
    ```
 2. Убедитесь, что у вас установлен Docker и Docker Compose.
 3. Установите зависимости, указанные в requirements.txt, с помощью Docker:
