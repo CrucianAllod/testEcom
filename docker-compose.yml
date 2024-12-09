@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: mongo:latest
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=testEcom.settings
+    volumes:
+      - .:/app
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django_test
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=testEcom.settings
+    command: ["sh", "-c", "sleep 5 && python manage.py migrate && python populate_db.py && python tests/test.py"]
+
+volumes:
+  mongo_data:
